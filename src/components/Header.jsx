@@ -10,6 +10,7 @@ import {
     MenubarTrigger,
 } from "@/components/ui/menubar"
 import Image from "next/image"
+import Link from "next/link"
 
 const Header = () => {
     return (
@@ -25,9 +26,9 @@ const Header = () => {
                             <Image width={30} height={40} src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH87TKQrWcl19xly2VNs0CjBzy8eaKNM-ZpA&s'}/>
                         </MenubarTrigger>
                             <MenubarContent>
-                                <MenubarItem>Profile</MenubarItem>
+                               <Link href={'/profile'}> <MenubarItem>Profile</MenubarItem></Link>
                                 <MenubarSeparator />
-                                <MenubarItem>My Appointment</MenubarItem>
+                                <Link href={'/appointment'}><MenubarItem>My Appointment</MenubarItem></Link>
                                 <MenubarSeparator />
                                 <MenubarItem>Logout</MenubarItem>
                             </MenubarContent>

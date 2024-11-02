@@ -21,6 +21,7 @@ import { CiClock2 } from "react-icons/ci";
 import { categories, doctors } from '@/lib/data'
 import { Button } from './ui/button'
 import Link from 'next/link'
+import { DatePicker } from './DatePicker';
 
 export const DoctorSection = ({ isHome }) => {
     const filterdeDoctors = isHome ? doctors.slice(0, 6) : doctors
@@ -54,7 +55,8 @@ export const DoctorSection = ({ isHome }) => {
                             <CardTitle>{doctor.name}</CardTitle>
                             <CardDescription>{doctor.category}</CardDescription>
                         </CardHeader>
-                        {isHome && <CardContent>
+                        {isHome && 
+                        <CardContent>
                           <Link  href={`/doctors/${doctor.id}`}><Button variant="outline">See Details</Button></Link> 
                         </CardContent>
                         }
@@ -83,7 +85,7 @@ export const DoctorSection = ({ isHome }) => {
                                     </div>
                                 </CardContent>
                                 <CardFooter>
-                                    <Link href={`/doctors/${doctor.id}`}> <Button>Book Apoointment</Button></Link>
+                                    <Link href={`/doctors/${doctor.id}`}><Button>Book Apoointment</Button></Link>
                                 </CardFooter>
                             </>
                         }

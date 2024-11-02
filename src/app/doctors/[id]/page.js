@@ -5,6 +5,8 @@ import { CiClock2 } from "react-icons/ci";
 import { MdAttachMoney } from "react-icons/md";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
+import { DatePicker } from "@/components/DatePicker";
+import { MdDateRange } from "react-icons/md";
 
 export default function DoctorDetail({ params }) {
     const id = params.id
@@ -34,9 +36,7 @@ export default function DoctorDetail({ params }) {
                             <p className="leading-relaxed my-3">
                                 Fam locavore kickstarter distillery. Mixtape chillwave tumeric
                                 sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo juiceramps
-                                cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine
-                                tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean
-                                shorts keytar banjo tattooed umami cardigan.
+                                cornhole raw denim forage brooklyn.
                             </p>
                             <div className="flex flex-col my-3">
                                 <div className='flex items-center justify-between my-1'>
@@ -64,6 +64,13 @@ export default function DoctorDetail({ params }) {
                                         <MdAttachMoney />
                                         <h1 className='font-semibold text-sm'>Fees</h1>
                                     </div><p className='text-sm'>{fees}</p>
+                                </div>
+                                <div className='flex items-center justify-between my-1'>
+                                    <div className='flex items-center gap-2'>
+                                        <MdDateRange />
+                                        <h1 className='font-semibold text-sm'>Pick a date</h1>
+                                    </div>
+                                    <DatePicker/>
                                 </div>
                             </div>
                                 <Button className={'w-full'}>Book Appointment</Button>                           

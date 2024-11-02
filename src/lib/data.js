@@ -37,7 +37,6 @@ export const doctors =
     "Gynecologist",
     "Psychiatrist"
   ];
-  
   export const curretUser = {
     name: "asad",
     role: "user",
