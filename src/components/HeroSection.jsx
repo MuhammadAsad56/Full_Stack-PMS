@@ -1,6 +1,7 @@
 "use client"
 import React from 'react'
 import { Button } from "@/components/ui/button"
+import Link from 'next/link'
 
 
 const HeroSection = () => {
@@ -18,8 +19,8 @@ const HeroSection = () => {
       Streamline your healthcare experience with our Patient Management System. Manage appointments, track medical records, and ensure seamless communication between patients and healthcare providers. Designed to enhance efficiency and improve patient care, all in one user-friendly platform.
       </p>
       <div className="flex justify-center gap-3">
-      <Button>Book Appointment</Button>
-      <Button variant="outline">Check Appointment</Button>
+      <Button>FInd Doctor You Need</Button>
+      <Link href={'/doctors/apply'}><Button variant="outline">Apply as Doctor</Button></Link>
       </div>
     </div>
     <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
