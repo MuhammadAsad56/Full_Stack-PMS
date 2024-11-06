@@ -3,7 +3,8 @@ const nextConfig = {
     images:{
         remotePatterns : [
             {
-                hostname: 'encrypted-tbn0.gstatic.com'
+                hostname: 'encrypted-tbn0.gstatic.com',
+                hostname: 'lh3.googleusercontent.com'
             }
         ]
     }
