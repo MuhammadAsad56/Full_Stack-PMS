@@ -1,10 +1,11 @@
-"use client"
 import React from 'react'
 import { Button } from "@/components/ui/button"
 import Link from 'next/link'
+import { auth } from '../../auth'
 
+const HeroSection = async () => {
+  const session = await auth()
 
-const HeroSection = () => {
   return (
     <div>
       <section className="text-gray-600 body-font">
@@ -20,7 +21,7 @@ const HeroSection = () => {
       </p>
       <div className="flex justify-center gap-3">
       <Button>FInd Doctor You Need</Button>
-      <Link href={'/doctors/apply'}><Button variant="outline">Apply as Doctor</Button></Link>
+      <Link href={session ? '/doctors/apply' : '/signin'}><Button variant="outline">Apply as Doctor</Button></Link>
       </div>
     </div>
     <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
