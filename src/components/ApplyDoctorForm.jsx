@@ -1,9 +1,8 @@
 "use client";
-
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea"
 
@@ -17,66 +16,69 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { addRequest } from "@/actions/doctorRequest";
+import ButtonSpinner from "./ButtonSpinner";
 
 // Define the schema with Zod
 const formSchema = z.object({
-  username: z.string().min(4,{message: "Username must be at least 4 characters."}).max(50),
   bio: z.string().min(15).max(120),
   hospital: z.string().min(4).max(50),
-  days: z.array(z.string()), // Specify array elements are strings
   fees: z.string(),
   gender: z.string(),
-  appointmentDate: z.date(),
+  appointmentTime: z.string(),
   degree: z.string(),
   specialization: z.string(),
   experience: z.string(),
   number: z.string(),
-  email: z.string().email(),
   address: z.string(),
 });
 
-export function ApplyDoctorForm() {
+export function ApplyDoctorForm({session}) {
+  const { toast } = useToast()
+
   // Initialize the form with useForm and Zod resolver
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
       bio: "",
       hospital: "",
-      days: [],
       fees: "",
       gender: "",
-      appointmentDate: new Date(),
+      appointmentTime: "",
       degree: "",
       specialization: "",
-      experience: "",
+      experience: "", 
       number: "",
-      email: "",
       address: "",
     },
   });
 
-  function onSubmit(values) {
-    console.log(values);
+  async function onSubmit(values) {
+    values.user = session.user._id
+    console.log("values>",values);
+    const response = await addRequest(values)
+    console.log("response>", response);
+    if(response.error){
+      form.reset()
+      toast({
+        title: "Sorry Your Application cannot be submitted",
+        description: response.msg,
+      })
+    }else{
+      form.reset()
+      toast({
+      title: "Your Application is submitted",
+      description: "you will be informed by email in 3 business days",
+    })
   }
 
+  }
+ 
   return (
     <div className="py-10">
       <Form {...form} >
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <FormField
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Username</FormLabel>
-                  <FormControl>
-                    <Input {...field} placeholder="Enter username" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             <FormField
               name="hospital"
               render={({ field }) => (
@@ -84,18 +86,6 @@ export function ApplyDoctorForm() {
                   <FormLabel>Hospital</FormLabel>
                   <FormControl>
                     <Input {...field} placeholder="Enter hospital name" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              name="days"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Available Days</FormLabel>
-                  <FormControl>
-                    <Input {...field} placeholder="Enter available days" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -128,23 +118,19 @@ export function ApplyDoctorForm() {
               )}
             />
 
-            <FormField
-              name="appointmentDate"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Appointment Date</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      type="date"
-                      placeholder="Select appointment date"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
+           <FormField
+            name="appointmentTime"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Appointment Time</FormLabel>
+                <FormControl>
+                  <Input type="time" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
             <FormField
               name="degree"
               render={({ field }) => (
@@ -196,19 +182,6 @@ export function ApplyDoctorForm() {
                 </FormItem>
               )}
             />
-
-            <FormField
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input {...field} placeholder="Enter email address" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             <FormField
               name="address"
               render={({ field }) => (
@@ -234,8 +207,7 @@ export function ApplyDoctorForm() {
               </FormItem>
             )}
           />
-
-          <Button type="submit">Submit</Button>
+          <Button type="submit">{form.formState.isSubmitting ? <ButtonSpinner/> : "Submit"}</Button>
         </form>
       </Form>
     </div>
