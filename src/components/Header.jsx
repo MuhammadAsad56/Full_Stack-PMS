@@ -11,6 +11,7 @@ import {
 import Link from "next/link"
 import { auth, signOut } from "../../auth"
 import { Button } from "./ui/button"
+import Image from "next/image"
 
 const Header = async () => {
     const session = await auth()
@@ -26,7 +27,7 @@ const Header = async () => {
                             <Menubar>
                                 <MenubarMenu>
                                     <MenubarTrigger>
-                                        <img className="rounded-full" width={30} height={40} src={session?.user?.image ? session.user.image : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH87TKQrWcl19xly2VNs0CjBzy8eaKNM-ZpA&s'}/>
+                                        <Image className="rounded-full" width={30} height={40} src={session?.user?.image ? session.user.image : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH87TKQrWcl19xly2VNs0CjBzy8eaKNM-ZpA&s'}/>
                                     </MenubarTrigger>
                                     <MenubarContent>
                                         <Link href={'/profile'}> <MenubarItem>Profile</MenubarItem></Link>

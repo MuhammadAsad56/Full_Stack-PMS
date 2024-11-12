@@ -55,9 +55,7 @@ export function ApplyDoctorForm({session}) {
 
   async function onSubmit(values) {
     values.user = session.user._id
-    console.log("values>",values);
     const response = await addRequest(values)
-    console.log("response>", response);
     if(response.error){
       form.reset()
       toast({

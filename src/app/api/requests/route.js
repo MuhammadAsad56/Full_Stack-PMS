@@ -3,7 +3,9 @@ import { RequestModal } from "@/lib/modals/Request.modal"
 
 export async function GET(request) {
     await connectDB()
-    const requests = await RequestModal.find().populate("user")
+    // const requests = await RequestModal.find().populate("user")
+    const requests = await RequestModal.find().populate("user").exec();
+
     return Response.json({
         msg: "requests fetched Successfully",
         requests: requests

@@ -1,4 +1,3 @@
-import { Hospital } from "lucide-react";
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
@@ -6,7 +5,7 @@ const userSchema = new mongoose.Schema({
     lastName: String,
     email: String,
     picture: String,
-    role: {type: String, enum: ["user","doctors", "admin"],  default: "user"},
+    role: {type: String, enum: ["user","doctors", "admin"], default: "user"},
     doctorInfo: {
         fees: String,
         hospital: String,

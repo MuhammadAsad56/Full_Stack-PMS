@@ -11,12 +11,12 @@ const HeroSection = async () => {
       <section className="text-gray-600 body-font">
   <div className="container mx-auto flex py-24 md:flex-row flex-col items-center">
     <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-      <h1 className="title-font sm:text-3xl text-2xl mb-4 font-medium text-gray-900">
+      <h1 className="title-font lg:text-3xl text-[22px] mb-4 font-medium text-gray-900">
        Patient Management System
         <br className="hidden lg:inline-block" />
         By Muhammad Asad
       </h1>
-      <p className="mb-8 leading-relaxed">
+      <p className="mb-8 leading-relaxed text-sm lg:text-[18px]">
       Streamline your healthcare experience with our Patient Management System. Manage appointments, track medical records, and ensure seamless communication between patients and healthcare providers. Designed to enhance efficiency and improve patient care, all in one user-friendly platform.
       </p>
       <div className="flex justify-center gap-3">
