@@ -17,7 +17,7 @@ import { Check, X } from "lucide-react"
 import DoctorDetailSheet from './DoctorDetailSheet'
 import { updateRequest } from '@/actions/doctorRequest'
 
-export default function DoctorRequests({ requests = []}) {
+export default function DoctorRequests({ requests = []}){
   console.log("requests in getFUnction", requests);
 
   const [dialogOpen, setDialogOpen] = useState(false)

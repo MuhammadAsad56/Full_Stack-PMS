@@ -24,7 +24,7 @@ export async function updateRequest(id, status) {
     try {
         let requests  = await fetch(`${process.env.BASE_URL}api/requests`,{
             method: 'PUT',
-            body: JSON.stringify({ id, status})
+            body: JSON.stringify({id, status})
         })
         requests = await requests.json()
         revalidatePath('/admin/requests')
