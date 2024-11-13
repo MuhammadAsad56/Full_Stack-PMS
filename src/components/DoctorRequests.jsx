@@ -18,10 +18,12 @@ import DoctorDetailSheet from './DoctorDetailSheet'
 import { updateRequest } from '@/actions/doctorRequest'
 
 export default function DoctorRequests({ requests }) {
+  console.log("requests>", requests);
+  
   
   const [dialogOpen, setDialogOpen] = useState(false)
   const [selectedRequest, setSelectedRequest] = useState({ requestId: null, actionType: null })
-  const [filterStatus, setFilterStatus] = useState('all') // State for filter status
+  const [filterStatus, setFilterStatus] = useState('all')
 
   const handleAction = (requestId, actionType) => {
     setSelectedRequest({ requestId, actionType })
@@ -54,7 +56,7 @@ export default function DoctorRequests({ requests }) {
           <Card key={request._id}>
             <CardHeader>
               <CardTitle>
-                {request.user.firstName + " " + request.user.lastName}
+              {request.user ? `${request.user.firstName} ${request.user.lastName}` : 'Unknown'}
               </CardTitle>
               <CardDescription>{request.status}</CardDescription>
             </CardHeader>
