@@ -5,6 +5,7 @@ export async function GET(request) {
     await connectDB()
     try {
         const requests = await RequestModal.find().populate("user");
+        console.log("requests in getFUnction", requests);
         return Response.json({
             error: "false",
             msg: "requests fetched Successfully",

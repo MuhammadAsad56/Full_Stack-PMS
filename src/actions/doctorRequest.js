@@ -12,8 +12,9 @@ export async function addRequest(data) {
 }
 export async function getRequest() {
     try {
-        let requests  = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/requests`)
+        let requests  = await fetch(`${process.env.BASE_URL}api/requests`)
         requests = await requests.json()
+        console.log("requests in getreques>", requests);  
         return requests  
     } catch (error) {
         console.log("error " ,error.message);
@@ -27,6 +28,7 @@ export async function updateRequest(id, status) {
         })
         requests = await requests.json()
         revalidatePath('/admin/requests')
+        if(!requests) return []
         return requests  
     } catch (error) {
         console.log("error " ,error.message);
