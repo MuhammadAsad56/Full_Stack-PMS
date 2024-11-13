@@ -17,7 +17,8 @@ import { Check, X } from "lucide-react"
 import DoctorDetailSheet from './DoctorDetailSheet'
 import { updateRequest } from '@/actions/doctorRequest'
 
-export default function DoctorRequests({ requests = []  }) {
+export default function DoctorRequests({ requests }) {
+  
   const [dialogOpen, setDialogOpen] = useState(false)
   const [selectedRequest, setSelectedRequest] = useState({ requestId: null, actionType: null })
   const [filterStatus, setFilterStatus] = useState('all') // State for filter status
@@ -37,11 +38,7 @@ export default function DoctorRequests({ requests = []  }) {
   }
 
   // Filter the requests based on the selected status
-  const filteredRequests = (requests && Array.isArray(requests))
-    ? (filterStatus === 'all' ? requests : requests.filter(request => request.status === filterStatus))
-    : [];
-
-  console.log("filteredRequests>", filteredRequests);
+  const filteredRequests = filterStatus === 'all' ? requests : requests.filter(request => request.status === filterStatus);
 
   return (
     <>
@@ -53,7 +50,7 @@ export default function DoctorRequests({ requests = []  }) {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-5 gap-5">
-        {filteredRequests.map(request => (
+        {filteredRequests?.map(request => (
           <Card key={request._id}>
             <CardHeader>
               <CardTitle>
