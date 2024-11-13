@@ -50,7 +50,9 @@ export const DoctorSection = ({ isHome }) => {
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-10'>
                 {
-                    filterdeDoctors.map(doctor => <Card key={doctor.id}>
+                    filterdeDoctors.map(doctor =>{
+                        return(
+                    <Card key={doctor.id}>
                         <CardHeader>
                             <CardTitle>{doctor.name}</CardTitle>
                             <CardDescription>{doctor.category}</CardDescription>
@@ -89,7 +91,10 @@ export const DoctorSection = ({ isHome }) => {
                                 </CardFooter>
                             </>
                         }
-                    </Card>)
+                    </Card>
+                        )
+                    }
+                    )
                 }
             </div>
         </>
