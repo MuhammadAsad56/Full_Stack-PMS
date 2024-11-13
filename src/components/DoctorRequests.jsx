@@ -40,7 +40,7 @@ export default function DoctorRequests({ requests }) {
   }
 
   // Filter the requests based on the selected status
-  const filteredRequests = filterStatus === 'all' ? requests : requests.filter(request => request.status === filterStatus);
+  const filteredRequests = filterStatus === 'all' ? requests : requests?.filter(request => request.status === filterStatus);
 
   return (
     <>
