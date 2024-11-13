@@ -19,8 +19,8 @@ import DoctorRequests from "@/components/DoctorRequests";
 export default async function AdminRequests() {
   const session = await auth()
   if (session?.user?.role != "admin") redirect('/')
-  const { requests } = await getRequest()
-console.log("requests>",requests);
+  const response = await getRequest()
+console.log("requests>",response);
 
   return (
     <div className="container mx-auto px-10 my-10">
@@ -65,7 +65,7 @@ console.log("requests>",requests);
           )
         })}
       </div> */}
-      <DoctorRequests requests={requests}/>
+      <DoctorRequests requests={response.requests}/>
     </div >
   )
 }
