@@ -1,5 +1,4 @@
 'use client'
-
 import { useState } from 'react'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -18,7 +17,7 @@ import { Check, X } from "lucide-react"
 import DoctorDetailSheet from './DoctorDetailSheet'
 import { updateRequest } from '@/actions/doctorRequest'
 
-export default function DoctorRequests({ requests }) {
+export default function DoctorRequests({ requests = []  }) {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [selectedRequest, setSelectedRequest] = useState({ requestId: null, actionType: null })
   const [filterStatus, setFilterStatus] = useState('all') // State for filter status
@@ -38,7 +37,11 @@ export default function DoctorRequests({ requests }) {
   }
 
   // Filter the requests based on the selected status
-  const filteredRequests = filterStatus === 'all' ? requests : requests.filter(request => request.status === filterStatus)
+  const filteredRequests = (requests && Array.isArray(requests))
+    ? (filterStatus === 'all' ? requests : requests.filter(request => request.status === filterStatus))
+    : [];
+
+  console.log("filteredRequests>", filteredRequests);
 
   return (
     <>
