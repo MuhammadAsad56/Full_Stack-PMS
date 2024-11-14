@@ -10,11 +10,10 @@ export async function addRequest(data) {
     add = await add.json()
     return add
 }
-export async function getRequest() {
+export async function getRequest(status) {
     try {
-        let requests  = await fetch(`${process.env.BASE_URL}api/requests`)
+        let requests  = await fetch(`${process.env.BASE_URL}api/requests${status &&'?status='+status}`)
         requests = await requests.json()
-        console.log("requests in getreques>", requests);  
         return requests  
     } catch (error) {
         console.log("error " ,error.message);

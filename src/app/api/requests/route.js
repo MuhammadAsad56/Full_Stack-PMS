@@ -3,8 +3,22 @@ import { RequestModal } from "@/lib/modals/Request.modal"
 
 export async function GET(request) {
     await connectDB()
+    // pehla tarika 
+    const query = {}
+    const status = request?.nextUrl?.searchParams?.get("status")
+    if(status && status != "all"){
+        query.status = status
+    }
+    // dosra tarika
+    // const requestUrl = request.url
+    // const {searchParams} = new URL(requestUrl)
+    // const query = {}
+    // if(searchParams.get('status') && searchParams.get('status') != "all"){
+    //     query.status = searchParams.get('status')
+    // } 
     try {
-        const requests = await RequestModal.find().populate("user");
+        const requests = await RequestModal.find(query).populate("user");
+        // console.log("request in getapi>", requests);
         return Response.json({
             error: "false",
             msg: "requests fetched Successfully",

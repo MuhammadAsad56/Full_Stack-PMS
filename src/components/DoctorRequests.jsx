@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import {
@@ -16,10 +16,13 @@ import { CiClock2 } from "react-icons/ci"
 import { Check, X } from "lucide-react"
 import DoctorDetailSheet from './DoctorDetailSheet'
 import { updateRequest } from '@/actions/doctorRequest'
+import { useSearchParams ,  usePathname, useRouter} from 'next/navigation';
 
 export default function DoctorRequests({ requests = []}){
-  console.log("requests in getFUnction", requests);
-
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+  // console.log("requests in getFUnction", requests);
   const [dialogOpen, setDialogOpen] = useState(false)
   const [selectedRequest, setSelectedRequest] = useState({ requestId: null, actionType: null })
   const [filterStatus, setFilterStatus] = useState('all')
@@ -28,7 +31,6 @@ export default function DoctorRequests({ requests = []}){
     setSelectedRequest({ requestId, actionType })
     setDialogOpen(true)
   }
-
   const confirmAction = async () => {
     if (selectedRequest.actionType === 'accepted') {
       await updateRequest(selectedRequest.requestId, selectedRequest.actionType)
@@ -38,8 +40,18 @@ export default function DoctorRequests({ requests = []}){
     setDialogOpen(false)
   }
 
+  useEffect(()=>{
+    const params = new URLSearchParams(searchParams);
+    if (filterStatus) {
+      params.set('status', filterStatus);
+    } else {
+      params.delete('status');
+    }
+    replace(`${pathname}?${params.toString()}`);
+  },[filterStatus])
+
   // Filter the requests based on the selected status
-  const filteredRequests = filterStatus === 'all' ? requests : requests?.filter(request => request.status === filterStatus);
+  // const filteredRequests = filterStatus === 'all' ? requests : requests?.filter(request => request.status === filterStatus);
 
   return (
     <>
@@ -51,7 +63,7 @@ export default function DoctorRequests({ requests = []}){
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-5 gap-5">
-        {filteredRequests?.map(request => (
+        {requests?.map(request => (
           <Card key={request._id}>
             <CardHeader>
               <CardTitle>
