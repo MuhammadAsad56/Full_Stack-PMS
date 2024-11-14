@@ -18,7 +18,7 @@ export async function GET(request) {
     // } 
     try {
         const requests = await RequestModal.find(query).populate("user");
-        // console.log("request in getapi>", requests);
+        console.log("request in getapi>", requests);
         return Response.json({
             error: "false",
             msg: "requests fetched Successfully",
@@ -28,6 +28,7 @@ export async function GET(request) {
         return Response.json({
             error: "true",
             msg: "requests not fetched",
+            details:error
         }, {status: 401})   
     }
 }
