@@ -1,5 +1,6 @@
 import { connectDB } from "@/lib/connectDB"
 import { RequestModal } from "@/lib/modals/Request.modal"
+import { UserModal } from "@/lib/modals/User.modal"
 
 export async function GET(request) {
     await connectDB()
@@ -28,7 +29,7 @@ export async function GET(request) {
         return Response.json({
             error: "true",
             msg: "requests not fetched",
-            details:error
+            details: error
         }, {status: 401})   
     }
 }
