@@ -12,7 +12,7 @@ export async function addRequest(data) {
 }
 export async function getRequest(status) {
     try {
-        let requests  = await fetch(`${process.env.BASE_URL}api/requests${status &&'?status='+status}`)
+    let requests  = await fetch(`${process.env.BASE_URL}api/requests${status &&'?status='+status}`)
         requests = await requests.json()
         return requests  
     } catch (error) {

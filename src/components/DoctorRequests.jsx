@@ -18,7 +18,7 @@ import DoctorDetailSheet from './DoctorDetailSheet'
 import { updateRequest } from '@/actions/doctorRequest'
 import { useSearchParams ,  usePathname, useRouter} from 'next/navigation';
 
-export default function DoctorRequests({ requests = []}){
+export default function DoctorRequests({ requests}){
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
