@@ -7,11 +7,12 @@ export default async function AdminRequests({ searchParams }) {
   const {status} = searchParams
   const session = await auth()
   if (session?.user?.role != "admin") redirect('/')
-  const {requests} = await getRequest(status)
+  const response = await getRequest(status)
+console.log('requests',response.requests)
   return (
     <div className="container mx-auto px-10 my-10">
       <h1 className="text-2xl font-bold">Doctor Requests</h1>
-      <DoctorRequests requests={requests}/>
+      <DoctorRequests requests={response.requests}/>
     </div >
   )
 }
