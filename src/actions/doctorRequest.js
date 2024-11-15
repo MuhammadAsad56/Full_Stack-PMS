@@ -14,6 +14,7 @@ export async function getRequest(status) {
     try {
     let requests  = await fetch(`${process.env.BASE_URL}api/requests${status &&'?status='+status}`)
         requests = await requests.json()
+        if(!requests) return []
         return requests  
     } catch (error) {
         console.log("error " ,error.message);
@@ -27,7 +28,6 @@ export async function updateRequest(id, status) {
         })
         requests = await requests.json()
         revalidatePath('/admin/requests')
-        if(!requests) return []
         return requests  
     } catch (error) {
         console.log("error " ,error.message);

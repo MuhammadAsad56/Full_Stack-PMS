@@ -18,13 +18,17 @@ import { CgGenderFemale } from "react-icons/cg";
 import { MdLocalHospital } from "react-icons/md";
 import { CiClock2 } from "react-icons/ci";
 
-import { categories, doctors } from '@/lib/data'
+import { categories } from '@/lib/data'
 import { Button } from './ui/button'
 import Link from 'next/link'
 import { DatePicker } from './DatePicker';
+import { getRequest } from '@/actions/doctorRequest';
 
-export const DoctorSection = ({ isHome }) => {
-    const filterdeDoctors = isHome ? doctors.slice(0, 6) : doctors
+export const DoctorSection = async ({ isHome }) => {
+    const {requests} = await getRequest("accepted")
+    const filterdeDoctors = isHome ? requests.slice(0, 6) : requests
+    console.log("filterdeDoctors>", filterdeDoctors);
+    
     return (
         <>
             <div className='flex items-center justify-between'>
@@ -50,12 +54,12 @@ export const DoctorSection = ({ isHome }) => {
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-10'>
                 {
-                    filterdeDoctors.map(doctor =>{
+                    filterdeDoctors?.map(doctor =>{
                         return(
-                    <Card key={doctor.id}>
+                    <Card key={doctor._id}>
                         <CardHeader>
-                            <CardTitle>{doctor.name}</CardTitle>
-                            <CardDescription>{doctor.category}</CardDescription>
+                            <CardTitle>{doctor.user.firstName} {doctor.user.lastName ? doctor.user.lastName : "" }</CardTitle>
+                            <CardDescription>{doctor.specialization}</CardDescription>
                         </CardHeader>
                         {isHome && 
                         <CardContent>

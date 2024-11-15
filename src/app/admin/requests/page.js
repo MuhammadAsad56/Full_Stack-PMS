@@ -8,11 +8,13 @@ export default async function AdminRequests({ searchParams }) {
   const session = await auth()
   if (session?.user?.role != "admin") redirect('/')
   const response = await getRequest(status)
-console.log(response)
   return (
       <div className="container mx-auto px-10 my-10">
       <h1 className="text-2xl font-bold">Doctor Requests</h1>
-      <DoctorRequests requests={response?.requests}/>
+      <DoctorRequests 
+      status={status}
+      requests={response?.requests}
+      />
       </div> 
   )
 }

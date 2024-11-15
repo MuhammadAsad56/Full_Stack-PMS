@@ -18,14 +18,13 @@ import DoctorDetailSheet from './DoctorDetailSheet'
 import { updateRequest } from '@/actions/doctorRequest'
 import { useSearchParams ,  usePathname, useRouter} from 'next/navigation';
 
-export default function DoctorRequests({ requests}){
+export default function DoctorRequests({ requests, status}){
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
-  // console.log("requests in getFUnction", requests);
   const [dialogOpen, setDialogOpen] = useState(false)
   const [selectedRequest, setSelectedRequest] = useState({ requestId: null, actionType: null })
-  const [filterStatus, setFilterStatus] = useState('all')
+  const [filterStatus, setFilterStatus] = useState(status)
 
   const handleAction = (requestId, actionType) => {
     setSelectedRequest({ requestId, actionType })
@@ -56,10 +55,10 @@ export default function DoctorRequests({ requests}){
   return (
     <>
       <div className="my-4 flex flex-wrap justify-center gap-4">
-        <Button variant="outline" onClick={() => setFilterStatus('all')}>All</Button>
-        <Button variant="outline" onClick={() => setFilterStatus('pending')}>Pending</Button>
-        <Button variant="outline" onClick={() => setFilterStatus('accepted')}>Accepted</Button>
-        <Button variant="outline" onClick={() => setFilterStatus('rejected')}>Rejected</Button>
+        <Button className={filterStatus == "all" && 'bg-gray-100'} variant="outline" onClick={() => setFilterStatus('all')}>All</Button>
+        <Button className={filterStatus == "pending" && 'bg-gray-100'} variant="outline" onClick={() => setFilterStatus('pending')}>Pending</Button>
+        <Button className={filterStatus == "accepted" && 'bg-gray-100'} variant="outline" onClick={() => setFilterStatus('accepted')}>Accepted</Button>
+        <Button className={filterStatus == "rejected" && 'bg-gray-100'} variant="outline" onClick={() => setFilterStatus('rejected')}>Rejected</Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-5 gap-5">

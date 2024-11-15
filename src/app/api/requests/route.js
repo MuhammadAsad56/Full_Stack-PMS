@@ -19,7 +19,6 @@ export async function GET(request) {
     // } 
     try {
         const requests = await RequestModal.find(query).populate("user");
-        console.log("request in getapi>", requests);
         return Response.json({
             error: "false",
             msg: "requests fetched Successfully",
@@ -65,7 +64,10 @@ export async function PUT(request) {
     await connectDB()
     try {
       const obj = await request.json()
+      console.log("obj in put method", obj);
       const {id , status} = obj
+      const selectedRequest = await RequestModal.findOne({_id : id})
+      await UserModal.findOneAndUpdate({_id: selectedRequest.user}, {role: "doctor"})
       const updated = await RequestModal.findOneAndUpdate({_id: id},{status: status}).exec()
       return Response.json({
         error: "false",
