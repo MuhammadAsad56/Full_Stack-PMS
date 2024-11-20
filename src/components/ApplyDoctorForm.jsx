@@ -33,7 +33,7 @@ const formSchema = z.object({
   address: z.string(),
 });
 
-export function ApplyDoctorForm({session}) {
+export function ApplyDoctorForm({ session }) {
   const { toast } = useToast()
 
   // Initialize the form with useForm and Zod resolver
@@ -47,7 +47,7 @@ export function ApplyDoctorForm({session}) {
       appointmentTime: "",
       degree: "",
       specialization: "",
-      experience: "", 
+      experience: "",
       number: "",
       address: "",
     },
@@ -56,22 +56,22 @@ export function ApplyDoctorForm({session}) {
   async function onSubmit(values) {
     values.user = session.user._id
     const response = await addRequest(values)
-    if(response.error){
+    if (response.error) {
       form.reset()
       toast({
         title: "Sorry Your Application cannot be submitted",
         description: response.msg,
       })
-    }else{
+    } else {
       form.reset()
       toast({
-      title: "Your Application is submitted",
-      description: "you will be informed by email in 3 business days",
-    })
-  }
+        title: "Your Application is submitted",
+        description: "you will be informed by email in 3 business days",
+      })
+    }
 
   }
- 
+
   return (
     <div className="py-10">
       <Form {...form} >
@@ -109,26 +109,30 @@ export function ApplyDoctorForm({session}) {
                 <FormItem>
                   <FormLabel>Gender</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Enter gender" />
+                    <select {...field} className="shadow p-2 outline-none w-full">
+                      <option value="">Select gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-           <FormField
-            name="appointmentTime"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Appointment Time</FormLabel>
-                <FormControl>
-                  <Input type="time" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <FormField
+              name="appointmentTime"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Appointment Time</FormLabel>
+                  <FormControl>
+                    <Input type="time" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               name="degree"
               render={({ field }) => (
@@ -205,7 +209,7 @@ export function ApplyDoctorForm({session}) {
               </FormItem>
             )}
           />
-          <Button type="submit">{form.formState.isSubmitting ? <ButtonSpinner/> : "Submit"}</Button>
+          <Button type="submit">{form.formState.isSubmitting ? <ButtonSpinner /> : "Submit"}</Button>
         </form>
       </Form>
     </div>

@@ -7,14 +7,17 @@ import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/DatePicker";
 import { MdDateRange } from "react-icons/md";
+import { getSingleRequest } from "@/actions/doctorRequest";
 
-export default function DoctorDetail({ params }) {
-    const id = params.id
-    const doctorObj = doctors.find(data => data.id == id)
-    console.log(doctorObj);
-
-    const { name, appointmentTime, category, hospital, gender, fees } = doctorObj
-
+export default async function DoctorDetail({ params }) {
+    
+    const {request} = await getSingleRequest(params.id)
+    console.log("single request>" , request);
+    
+    const {user:{ firstName, lastName }, appointmentTime, specialization, hospital, gender, fees } = request[0]
+    console.log("firstname>", firstName, lastName);
+    
+    
     return (
         <div className="container mx-auto px-10">
             <Header/>
@@ -28,10 +31,10 @@ export default function DoctorDetail({ params }) {
                         />
                         <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0 flex flex-col justify-center">
                             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                                {name}
+                                {firstName + " " + lastName}
                             </h1>
                             <h2 className="text-sm title-font text-gray-500 tracking-widest">
-                                {category}
+                                {specialization}
                             </h2>
                             <p className="leading-relaxed my-3">
                                 Fam locavore kickstarter distillery. Mixtape chillwave tumeric

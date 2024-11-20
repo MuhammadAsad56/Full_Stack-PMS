@@ -26,9 +26,7 @@ import { getRequest } from '@/actions/doctorRequest';
 
 export const DoctorSection = async ({ isHome }) => {
     const {requests} = await getRequest("accepted")
-    const filterdeDoctors = isHome ? requests.slice(0, 6) : requests
-    console.log("filterdeDoctors>", filterdeDoctors);
-    
+    const filterdeDoctors = isHome ? requests.slice(0, 6) : requests    
     return (
         <>
             <div className='flex items-center justify-between'>
@@ -63,7 +61,7 @@ export const DoctorSection = async ({ isHome }) => {
                         </CardHeader>
                         {isHome && 
                         <CardContent>
-                          <Link  href={`/doctors/${doctor.id}`}><Button variant="outline">See Details</Button></Link> 
+                          <Link  href={`/doctors/${doctor._id}`}><Button variant="outline">See Details</Button></Link> 
                         </CardContent>
                         }
                         {!isHome &&
@@ -91,7 +89,7 @@ export const DoctorSection = async ({ isHome }) => {
                                     </div>
                                 </CardContent>
                                 <CardFooter>
-                                    <Link href={`/doctors/${doctor.id}`}><Button>Book Apoointment</Button></Link>
+                                    <Link href={`/doctors/${doctor._id}`}><Button>Book Apoointment</Button></Link>
                                 </CardFooter>
                             </>
                         }

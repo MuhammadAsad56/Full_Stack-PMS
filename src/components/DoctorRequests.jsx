@@ -24,7 +24,7 @@ export default function DoctorRequests({ requests, status}){
   const { replace } = useRouter();
   const [dialogOpen, setDialogOpen] = useState(false)
   const [selectedRequest, setSelectedRequest] = useState({ requestId: null, actionType: null })
-  const [filterStatus, setFilterStatus] = useState(status)
+  const [filterStatus, setFilterStatus] = useState('all')
 
   const handleAction = (requestId, actionType) => {
     setSelectedRequest({ requestId, actionType })
@@ -68,7 +68,7 @@ export default function DoctorRequests({ requests, status}){
               <CardTitle>
               {request.user ? `${request.user.firstName} ${request.user.lastName}` : 'Unknown'}
               </CardTitle>
-              <CardDescription>{request.status}</CardDescription>
+              <CardDescription className={request.status == "accepted" ? 'text-green-400' : 'text-red-400'}>{request.status}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className='flex items-center justify-between my-2'>

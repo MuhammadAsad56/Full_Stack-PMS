@@ -11,7 +11,7 @@ export default async function AdminRequests({ searchParams }) {
   return (
       <div className="container mx-auto px-10 my-10">
       <h1 className="text-2xl font-bold">Doctor Requests</h1>
-      <DoctorRequests 
+      <DoctorRequests
       status={status}
       requests={response?.requests}
       />

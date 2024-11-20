@@ -64,7 +64,6 @@ export async function PUT(request) {
     await connectDB()
     try {
       const obj = await request.json()
-      console.log("obj in put method", obj);
       const {id , status} = obj
       const selectedRequest = await RequestModal.findOne({_id : id})
       await UserModal.findOneAndUpdate({_id: selectedRequest.user}, {role: "doctor"})

@@ -14,8 +14,18 @@ export async function getRequest(status) {
     try {
     let requests  = await fetch(`${process.env.BASE_URL}api/requests${status &&'?status='+status}`)
         requests = await requests.json()
-        if(!requests) return []
+        if(!requests) return [] 
         return requests  
+    } catch (error) {
+        console.log("error " ,error.message);
+    }
+}
+export async function getSingleRequest(id) {
+    try {
+    let request  = await fetch(`${process.env.BASE_URL}api/requests/${id}`)
+        request = await request.json()
+        if(!request) return [] 
+        return request  
     } catch (error) {
         console.log("error " ,error.message);
     }
