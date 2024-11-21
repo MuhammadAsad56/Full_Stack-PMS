@@ -1,4 +1,3 @@
-import { doctors } from "@/lib/data"
 import { CgGenderFemale } from "react-icons/cg";
 import { MdLocalHospital } from "react-icons/md";
 import { CiClock2 } from "react-icons/ci";
@@ -8,21 +7,19 @@ import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/DatePicker";
 import { MdDateRange } from "react-icons/md";
 import { getSingleRequest } from "@/actions/doctorRequest";
+import { auth } from "../../../../auth";
+import Link from "next/link";
 
 export default async function DoctorDetail({ params }) {
-    
+    const session = await auth()
     const {request} = await getSingleRequest(params.id)
-    console.log("single request>" , request);
-    
     const {user:{ firstName, lastName }, appointmentTime, specialization, hospital, gender, fees } = request[0]
-    console.log("firstname>", firstName, lastName);
-    
     
     return (
         <div className="container mx-auto px-10">
             <Header/>
             <section className="text-gray-600 body-font overflow-hidden">
-                <div className="py-10">
+                <div className="py-8">
                     <div className="lg:w-4/5 mx-auto flex flex-wrap">
                         <img
                             alt="ecommerce"
@@ -68,15 +65,14 @@ export default async function DoctorDetail({ params }) {
                                         <h1 className='font-semibold text-sm'>Fees</h1>
                                     </div><p className='text-sm'>{fees}</p>
                                 </div>
-                                <div className='flex items-center justify-between my-1'>
+                                <div className='flex flex-col justify-between my-1'>
                                     <div className='flex items-center gap-2'>
                                         <MdDateRange />
-                                        <h1 className='font-semibold text-sm'>Pick a date</h1>
+                                        <h1 className='font-semibold text-sm'>Pick a date 👇</h1>
                                     </div>
-                                    <DatePicker/>
+                                    <DatePicker session={session} request={params.id}/>
                                 </div>
-                            </div>
-                                <Button className={'w-full'}>Book Appointment</Button>                           
+                            </div>                         
                         </div>
                     </div>
                 </div>

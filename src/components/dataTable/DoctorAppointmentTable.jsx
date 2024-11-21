@@ -15,6 +15,9 @@ import {
     useReactTable,
 } from "@tanstack/react-table"
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
+import dayjs from "dayjs"
+import relativeTime from 'dayjs/plugin/relativeTime'
+dayjs.extend(relativeTime)
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -37,7 +40,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 
-import { appointments } from "@/lib/data"
+// import { appointments } from "@/lib/data"
 
 export const columns = [
     {
@@ -63,51 +66,39 @@ export const columns = [
         enableHiding: false,
     },
     {
-        id: "userName",
-        header: "User Name",
+        id: "patientName",
+        header: "Patient Name",
         cell: ({ row }) => (
-            <div className="capitalize">{row.original.user.name}</div>
-        ),
-    },
-    {
-        id: "userEmail",
-        header: "Email",
-        cell: ({ row }) => (
-            <div className="lowercase">{row.original.user.email}</div>
+            <div className="capitalize">{row.original.user?.firstName + " " + row.original.user?.lastName}</div>
         ),
     },
     {
         accessorKey: "appointmentDate",
         header: "Appointment Date",
-        cell: ({ row }) => <div>{row.getValue("appointmentDate")}</div>,
+        cell: ({ row }) => <div>{dayjs(row.original.date).fromNow() + " " +  dayjs(row.original.date).format('DD/MM/YYYY')}</div>,
     },
     {
-        accessorKey: "appointmentTime",
-        header: "Appointment Time",
-        cell: ({ row }) => <div>{row.getValue("appointmentTime")}</div>,
-    },
-    {
-        accessorKey: "status",
-        header: "Status",
-        cell: ({ row }) => <div>{row.getValue("status")}</div>,
-    },
-    {
-        id: "doctorName",
-        header: "Doctor Name",
+        id: "appointmentTime",
+        header: "Appointment TIme",
         cell: ({ row }) => (
-            <div>{row.original.doctor.name}</div>
+            <div className="lowercase">{row.original.request?.appointmentTime}</div>
         ),
     },
     {
         id: "doctorHospital",
         header: "Hospital",
         cell: ({ row }) => (
-            <div>{row.original.doctor.hospital}</div>
+            <div>{row.original.request?.hospital}</div>
         ),
+    },
+    {
+        id: "status",
+        header: "Status",
+        cell: ({ row }) => <div>{row.original.status}</div>,
     },
 ]
 
-export function AppointmentTable() {
+export function DoctorAppointmentTable({appointments}) {
     const [sorting, setSorting] = useState([])
     const [columnFilters, setColumnFilters] = useState([])
     const [columnVisibility, setColumnVisibility] = useState({})

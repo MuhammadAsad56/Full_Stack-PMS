@@ -26,7 +26,7 @@ import { getRequest } from '@/actions/doctorRequest';
 
 export const DoctorSection = async ({ isHome }) => {
     const {requests} = await getRequest("accepted")
-    const filterdeDoctors = isHome ? requests.slice(0, 6) : requests    
+    const filterdeDoctors = isHome ? requests?.slice(0, 6) : requests    
     return (
         <>
             <div className='flex items-center justify-between'>
