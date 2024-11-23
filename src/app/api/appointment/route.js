@@ -2,6 +2,7 @@ import { connectDB } from "@/lib/connectDB";
 import { AppointmentModal } from "@/lib/modals/Appointment.modal";
 import { UserModal } from "@/lib/modals/User.modal";
 import { RequestModal } from "@/lib/modals/Request.modal";
+import { appointments } from "@/lib/data";
 
 export async function GET(request) {
     await connectDB()
@@ -36,17 +37,19 @@ export async function POST(request) {
     await connectDB()
     try {
         const obj = await request.json()
-        console.log("obj>>", obj);
         const doctor = await RequestModal.findOne({_id: obj.request})
         if(obj.request == doctor._id && obj.user == doctor.user) return Response.json({
             error: true,
             msg: "You cannot book your appointment",
         })
-        // const isDoctor = await AppointmentModal.findOne({request: doctor._id, user: doctor.user})
-        // if(isDoctor) return Response.json({
-        //     error: true,
-        //     msg: "You cannot book your appointment",
-        // })
+        /*
+        shuru me to AppointmentModal me koi aesa hoga hi nahi is liye wo khud ka appointment add kardega isliye ye condition sai nhi he 
+        const isDoctor = await AppointmentModal.findOne({request: doctor._id, user: doctor.user})
+        if(isDoctor) return Response.json({
+            error: true,
+            msg: "You cannot book your appointment",
+        })
+        */
         const isBooked = await AppointmentModal.findOne({request: obj.request, user: obj.user, status: 'pending',});        
         if(isBooked) return Response.json({
             error: true,
