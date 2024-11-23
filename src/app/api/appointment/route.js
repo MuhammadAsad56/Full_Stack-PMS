@@ -38,11 +38,12 @@ export async function POST(request) {
         const obj = await request.json()
         const doctor = await RequestModal.findOne({_id: obj.request})
         const isDoctor = await AppointmentModal.findOne({user: doctor.user})
+        console.log("isDoctor>>", isDoctor);
         if(isDoctor) return Response.json({
             error: true,
             msg: "you cannot book appointment because you are a doctor",
         })
-        const isBooked = await AppointmentModal.findOne({request: obj.request}, {user: obj.user}, {status: 'pending'})
+        const isBooked = await AppointmentModal.findOne({request: obj.request, user: obj.user, status: 'pending',});        
         if(isBooked) return Response.json({
             error: true,
             msg: "you are already booked a appointment",
