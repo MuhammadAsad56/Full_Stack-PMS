@@ -37,7 +37,9 @@ export async function POST(request) {
     try {
         const obj = await request.json()
         const doctor = await RequestModal.findOne({_id: obj.request})
-        const isDoctor = await AppointmentModal.findOne({user: doctor.user})
+        console.log("doctor>>", doctor);
+        const isDoctor = await AppointmentModal.findOne({request: doctor._id, user: doctor.user})
+        console.log("isDoctor>", isDoctor);
         if(isDoctor) return Response.json({
             error: true,
             msg: "You cannot book your appointment",
