@@ -41,7 +41,7 @@ export async function POST(request) {
         console.log("isDoctor>>", isDoctor);
         if(isDoctor) return Response.json({
             error: true,
-            msg: "you cannot book appointment because you are a doctor",
+            msg: "You cannot book your appointment",
         })
         const isBooked = await AppointmentModal.findOne({request: obj.request, user: obj.user, status: 'pending',});        
         if(isBooked) return Response.json({
