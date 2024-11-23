@@ -15,6 +15,7 @@ export async function updateAppointment(id, status) {
         method: "PUT",
         body: JSON.stringify({id, status})
     })
+    revalidatePath('/appointment')
     updateAppointment = await updateAppointment.json()
     return updateAppointment
 }
