@@ -10,6 +10,14 @@ export async function addAppointment(data) {
     add = await add.json()
     return add
 }
+export async function updateAppointment(id, status) {
+    let updateAppointment = await fetch(`${process.env.BASE_URL}api/appointment`,{
+        method: "PUT",
+        body: JSON.stringify({id, status})
+    })
+    updateAppointment = await updateAppointment.json()
+    return updateAppointment
+}
 export async function getAppointment(role = "", id){
     let url;
     if(role == "user"){

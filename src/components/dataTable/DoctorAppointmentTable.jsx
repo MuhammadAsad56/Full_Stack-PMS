@@ -39,6 +39,8 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
+import { updateAppointment } from "@/actions/appointment"
 
 // import { appointments } from "@/lib/data"
 
@@ -95,6 +97,30 @@ export const columns = [
         id: "status",
         header: "Status",
         cell: ({ row }) => <div>{row.original.status}</div>,
+    },
+    {
+        id: "updateStatus",
+        header: "Update Status",
+        cell: ({ row }) => {
+            const [status, setStatus] = useState(row.original.status);
+
+            const handleStatusChange = async (newStatus) => {
+                setStatus(newStatus);
+                await updateAppointment(row.original._id, newStatus)
+            };
+
+            return (
+                <Select value={status} onValueChange={handleStatusChange}>
+                    <SelectTrigger>
+                        <SelectValue placeholder={row.original.status}/>
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="accepted">Accepted</SelectItem>
+                        <SelectItem value="visited">Visited</SelectItem>
+                    </SelectContent>
+                </Select>
+            );
+        },
     },
 ]
 

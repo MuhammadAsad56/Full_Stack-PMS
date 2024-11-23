@@ -36,6 +36,12 @@ export async function POST(request) {
     await connectDB()
     try {
         const obj = await request.json()
+        const doctor = await RequestModal.findOne({_id: obj.request})
+        const isDoctor = await AppointmentModal.findOne({user: doctor.user})
+        if(isDoctor) return Response.json({
+            error: true,
+            msg: "you cannot book appointment because you are a doctor",
+        })
         const isBooked = await AppointmentModal.findOne({request: obj.request}, {user: obj.user}, {status: 'pending'})
         if(isBooked) return Response.json({
             error: true,
@@ -56,5 +62,22 @@ export async function POST(request) {
     }
 }
  
-export async function PUT(request) {}
+export async function PUT(request) {
+    await connectDB()
+    try {
+        const obj = await request.json()
+        const {id, status} = obj
+        const updatedAppointment = await AppointmentModal.findOneAndUpdate({_id: id}, {status: status})
+        return Response.json({
+            error: false,
+            msg: "Appointment updated Successfully",
+            appointment: updatedAppointment
+           }, {status: 203})
+    } catch (error) {
+        return Response.json({
+            error: true,
+            msg: "something went wrong",
+           },{status: 400})
+    }
+}
  
