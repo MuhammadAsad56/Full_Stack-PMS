@@ -102,15 +102,14 @@ export const columns = [
         id: "updateStatus",
         header: "Update Status",
         cell: ({ row }) => {
-            const [status, setStatus] = useState(row.original.status);
+            const appointment = row.original
 
-            const handleStatusChange = async (newStatus) => {
-                setStatus(newStatus);
-                await updateAppointment(row.original._id, newStatus)
+            const handleStatusChange = async (changeStatus) => {
+                await updateAppointment(appointment._id, changeStatus)
             };
 
             return (
-                <Select value={status} onValueChange={handleStatusChange}>
+                <Select name="changeStatus" onValueChange={handleStatusChange}>
                     <SelectTrigger>
                         <SelectValue placeholder={row.original.status}/>
                     </SelectTrigger>
@@ -154,9 +153,9 @@ export function DoctorAppointmentTable({appointments}) {
             <div className="flex items-center py-4">
                 <Input
                     placeholder="Filter by user name..."
-                    value={(table.getColumn("userName")?.getFilterValue()) ?? ""}
+                    value={(table.getColumn("patientName")?.getFilterValue()) ?? ""}
                     onChange={(event) =>
-                        table.getColumn("userName")?.setFilterValue(event.target.value)
+                        table.getColumn("patientName")?.setFilterValue(event.target.value)
                     }
                     className="max-w-sm"
                 />
