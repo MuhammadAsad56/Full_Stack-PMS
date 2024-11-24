@@ -29,7 +29,7 @@ export const DoctorSection = async ({ isHome }) => {
     const filterdeDoctors = isHome ? requests?.slice(0, 6) : requests    
     return (
         <>
-            <div className='flex items-center justify-between'>
+            <div className='flex items-center py-5 justify-between'>
                 <h1 className='text-2xl font-semibold m-0'>Doctors</h1>
 
                 {isHome ?
