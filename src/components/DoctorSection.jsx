@@ -17,14 +17,14 @@ import {
 import { CgGenderFemale } from "react-icons/cg";
 import { MdLocalHospital } from "react-icons/md";
 import { CiClock2 } from "react-icons/ci";
-
 import { categories } from '@/lib/data'
 import { Button } from './ui/button'
 import Link from 'next/link'
-import { DatePicker } from './DatePicker';
 import { getRequest } from '@/actions/doctorRequest';
 
 export const DoctorSection = async ({ isHome }) => {
+    console.log("isHome>>", isHome);
+    
     const {requests} = await getRequest("accepted")
     const filterdeDoctors = isHome ? requests?.slice(0, 6) : requests    
     return (
