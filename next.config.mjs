@@ -4,7 +4,8 @@ const nextConfig = {
         remotePatterns : [
             {
                 hostname: 'encrypted-tbn0.gstatic.com',
-                hostname: 'lh3.googleusercontent.com'
+                hostname: 'lh3.googleusercontent.com',
+                // hostname: 'i.pinimg.com'
             }
         ]
     }

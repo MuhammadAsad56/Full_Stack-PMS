@@ -23,8 +23,6 @@ import Link from 'next/link'
 import { getRequest } from '@/actions/doctorRequest';
 
 export const DoctorSection = async ({ isHome }) => {
-    console.log("isHome>>", isHome);
-    
     const {requests} = await getRequest("accepted")
     const filterdeDoctors = isHome ? requests?.slice(0, 6) : requests    
     return (

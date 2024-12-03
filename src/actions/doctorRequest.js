@@ -20,7 +20,7 @@ export async function getRequest(status) {
         console.log("error " ,error.message);
     }
 }
-export async function getSingleRequest(id) {
+export async function getSingleRequest(id){
     try {
     let request  = await fetch(`${process.env.BASE_URL}api/requests/${id}`)
         request = await request.json()

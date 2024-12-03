@@ -19,8 +19,8 @@ const Header = async () => {
         <div>
             <header className="text-gray-600 body-font">
                 <div className="flex py-5 justify-between items-center">
-                    <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-                        <span className="text-2xl font-bold">Logo</span>
+                    <a className="flex title-font font-medium items-center text-gray-900 mb-0 md:mb-0">
+                        <img width={60} height={60} src="https://i.pinimg.com/736x/25/dc/47/25dc4724f96ecead1872f71ec2b4c57d.jpg" alt="" />
                     </a>
                     {
                         session ?
