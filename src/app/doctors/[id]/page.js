@@ -19,7 +19,7 @@ export default async function DoctorDetail({ params }) {
         <div className="container mx-auto px-10">
             <Header/>
             <section className="text-gray-600 body-font overflow-hidden">
-                <div className="py-8">
+                <div className="py-3">
                     <div className="lg:w-4/5 mx-auto flex flex-wrap">
                         <img
                             alt="ecommerce"
