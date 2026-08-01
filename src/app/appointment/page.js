@@ -1,9 +1,10 @@
-import { UserAppointmentTable } from "@/components/dataTable/UserAppointmentTable";
+// import { UserAppointmentTable } from "@/components/dataTable/UserAppointmentTable";
 import Header from "@/components/Header";
 import { auth } from "../../../auth";
 import { getAppointment } from "@/actions/appointment";
 import { DoctorAppointmentTable } from "@/components/dataTable/DoctorAppointmentTable";
 import { AdminPanel } from "@/components/dataTable/AdminPanel";
+import { UserAppointmentTable } from "@/components/dataTable/UserAppointmentTable";
 
 export default async function Appointment(){
     const session = await auth()
