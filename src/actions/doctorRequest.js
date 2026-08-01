@@ -11,14 +11,22 @@ export async function addRequest(data) {
     return add
 }
 export async function getRequest(status) {
-    try {
-    let requests  = await fetch(`${process.env.BASE_URL}api/requests${status &&'?status='+status}`)
-        requests = await requests.json()
-        if(!requests) return [] 
-        return requests  
-    } catch (error) {
-        console.log("error " ,error.message);
-    }
+  const url = `${process.env.BASE_URL}api/requests${status ? `?status=${status}` : ""}`;
+
+  console.log("Fetching:", url);
+
+  const res = await fetch(url, {
+    cache: "no-store",
+  });
+
+  console.log("Status:", res.status);
+  console.log("Content-Type:", res.headers.get("content-type"));
+
+  const text = await res.text();
+
+  console.log(text);
+
+  return JSON.parse(text);
 }
 export async function getSingleRequest(id){
     try {
